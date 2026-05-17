@@ -758,29 +758,44 @@ h1 {
     });
 });
 
-// 3. Lógica Dinâmica do FAQ puxando do Google Sheets
+// 3. Lógica Dinâmica do FAQ puxando do Google Sheets (Versão Inteligente Antifalhas)
     function carregarFAQ() {
         const faqContainer = document.getElementById('faq-container');
         
-        // Faz uma requisição GET para a mesma URL do script do formulário
         fetch(scriptURL)
             .then(response => response.json())
             .then(data => {
                 faqContainer.innerHTML = ''; // Remove a mensagem de carregando
                 
-                // Se a planilha estiver vazia ou com erro
-                if (data.length === 0 || data.erro) {
+                if (!data || data.length === 0 || data.erro) {
                     faqContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nenhuma dúvida frequente cadastrada no momento.</p>';
                     return;
                 }
 
                 // Cria o HTML para cada pergunta cadastrada na planilha
                 data.forEach(item => {
+                    let pergunta = "";
+                    let resposta = "";
+
+                    // Força a descoberta do texto não importa o formato enviado pelo Google
+                    if (Array.isArray(item)) {
+                        pergunta = item[0];
+                        resposta = item[1];
+                    } else if (item && typeof item === 'object') {
+                        pergunta = item.pergunta || item.Pergunta || item.question || "";
+                        resposta = item.resposta || item.Resposta || item.answer || "";
+                    }
+
+                    // Se mesmo assim vier vazio, define um texto padrão para não quebrar o layout
+                    if (!pergunta && !resposta) {
+                        return; // Pula linhas totalmente vazias
+                    }
+
                     const faqItem = document.createElement('div');
                     faqItem.className = 'faq-item';
                     faqItem.innerHTML = `
-                        <div class="faq-question">${item.Pergunta}</div>
-                        <div class="faq-answer">${item.Resposta}</div>
+                        <div class="faq-question">${pergunta}</div>
+                        <div class="faq-answer">${resposta}</div>
                     `;
                     faqContainer.appendChild(faqItem);
                 });
@@ -804,9 +819,8 @@ h1 {
             });
     }
 
-    // Aciona a busca do FAQ assim que o código passa por aqui
+    // Aciona a busca do FAQ assim que a página carrega
     carregarFAQ();
-
     
 </script>
 </body>

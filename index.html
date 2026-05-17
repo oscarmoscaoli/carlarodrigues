@@ -540,7 +540,7 @@
             
             <div class="form-wrapper">
     <div id="mensagem-sucesso" style="display: none; text-align: center; color: #155724; background-color: #d4edda; border: 1px solid #c3e6cb; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-        <strong>Sucesso!</strong> Seus dados foram enviados. A Carla entrará em contato em breve!
+        <strong>Sucesso!</strong> Seus dados foram enviados. Entrarei em contato em breve!
     </div>
 
     <form id="leadForm">
@@ -605,7 +605,7 @@
 
     <script>
     // 1. Substitua pela URL do seu Google Apps Script (Mantenha as aspas)
-    const scriptURL = 'SUA_URL_DO_SCRIPT_AQUI';
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzgzDDGMJpbStIvx97RGz351zGulZNsbu1aD6AX1xr1Ub0MGDf7ZISoWR5j1j2K-fxWTg/exec';
     
     // 2. Lógica de Envio do Formulário em 2º plano
     const form = document.getElementById('leadForm');
@@ -613,35 +613,36 @@
     const msgSucesso = document.getElementById('mensagem-sucesso');
 
     form.addEventListener('submit', e => {
-        e.preventDefault(); // Impede o redirecionamento padrão da página
+    e.preventDefault(); 
+    
+    const textoOriginal = btnSubmit.innerText;
+    btnSubmit.innerText = 'Enviando aguarde...';
+    btnSubmit.disabled = true;
+
+    // Ajustado para converter os dados corretamente para o Google Sheets
+    fetch(scriptURL, { 
+        method: 'POST', 
+        body: new URLSearchParams(new FormData(form)), 
+        mode: 'no-cors' 
+    })
+    .then(response => {
+        form.reset(); 
+        msgSucesso.style.display = 'block'; 
         
-        // Muda o texto do botão para mostrar que está carregando
-        const textoOriginal = btnSubmit.innerText;
-        btnSubmit.innerText = 'Enviando aguarde...';
-        btnSubmit.disabled = true; // Evita duplo clique
+        btnSubmit.innerText = textoOriginal;
+        btnSubmit.disabled = false;
 
-        // Envia os dados silenciosamente
-        fetch(scriptURL, { method: 'POST', body: new FormData(form), mode: 'no-cors' })
-            .then(response => {
-                form.reset(); // Limpa os campos do formulário
-                msgSucesso.style.display = 'block'; // Mostra a mensagem de sucesso
-                
-                // Restaura o botão
-                btnSubmit.innerText = textoOriginal;
-                btnSubmit.disabled = false;
-
-                // (Opcional) Esconde a mensagem de sucesso após 7 segundos
-                setTimeout(() => {
-                    msgSucesso.style.display = 'none';
-                }, 7000);
-            })
-            .catch(error => {
-                console.error('Erro!', error.message);
-                alert('Houve um erro ao enviar. Tente novamente.');
-                btnSubmit.innerText = textoOriginal;
-                btnSubmit.disabled = false;
-            });
+        setTimeout(() => {
+            msgSucesso.style.display = 'none';
+        }, 7000);
+    })
+    .catch(error => {
+        console.error('Erro!', error.message);
+        alert('Houve um erro ao enviar. Tente novamente.');
+        btnSubmit.innerText = textoOriginal;
+        btnSubmit.disabled = false;
     });
+});
 
     // 3. Lógica do FAQ Accordion
     const faqItems = document.querySelectorAll('.faq-item');

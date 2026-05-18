@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carla Rodrigues | Viva o Extraordinário</title>
+    
+    <title>Carla Rodrigues | Consultora de Beleza Independente Mary Kay SP</title>
+<meta name="description" content="Encontre produtos Mary Kay originais com entrega em todo o estado de São Paulo. Conheça a oportunidade de negócio e conquiste sua independência financeira com o suporte da Carla Rodrigues.">
+<meta name="keywords" content="Mary Kay, Consultora Mary Kay São Paulo, Comprar Mary Kay SP, Revender Mary Kay, Carla Rodrigues Bem Estar, Empreendedorismo Feminino">
+
+<meta property="og:title" content="Carla Rodrigues | Consultora Independente Mary Kay SP">
+<meta property="og:description" content="Trabalhe no seu próprio ritmo e conquiste sua independência financeira. Atendimento e produtos Mary Kay em SP.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="COLOQUE_AQUI_O_LINK_DO_SEU_GITHUB_PAGES">
+<meta property="og:image" content="https://via.placeholder.com/1200x630.png?text=Carla+Rodrigues+Mary+Kay">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
@@ -517,6 +526,145 @@ h1 {
             .cookie-banner { padding: 15px; text-align: center; flex-direction: column; gap: 15px;}
         }
 
+ /* --- SEÇÃO BASE ROSA (EFEITO 3D TOPO E BASE COM HOVER) --- */
+        .section-base-rosa {
+            background-color: #FF5C8A;
+            margin-top: 140px; 
+            margin-bottom: 140px;
+            padding: 50px 0; 
+            color: #FFFFFF;
+            overflow: visible; 
+            position: relative;
+            z-index: 5;
+        }
+
+        .base-grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .base-image-box {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .img-base-grande {
+            width: 100%;
+            max-width: 320px; 
+            margin-top: -130px;    
+            margin-bottom: -130px; 
+            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
+            transform: rotate(-10deg); 
+            
+            /* --- Adiciona transição suave para o efeito hover --- */
+            transition: transform 0.3s ease, filter 0.3s ease; 
+        }
+
+        /* --- Efeito de Hover na Imagem da Base --- */
+        .img-base-grande:hover {
+            transform: rotate(-1deg) scale(1.15); /* Diminui a rotação e aumenta levemente o tamanho */
+            filter: drop-shadow(0 30px 40px rgba(0,0,0,0.25)); /* Intensifica a sombra para dar mais profundidade */
+        }
+
+        .base-text-box {
+            padding-left: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .badge-white {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: inline-block; 
+            margin-bottom: 15px;
+        }
+
+        .titulo-base-apple {
+            font-family: 'Homemade Apple', cursive !important;
+            font-size: 48px;
+            margin: 0 0 20px 0;
+            color: #FFFFFF;
+            line-height: 1.4;
+        }
+
+        .descricao-base {
+            font-size: 18px;
+            color: #FFFFFF;
+            margin-bottom: 35px;
+            line-height: 1.6;
+            max-width: 550px;
+        }
+
+        .btn-base-white {
+            display: inline-block;
+            padding: 16px 35px;
+            background-color: #FFFFFF;
+            color: #FF5C8A;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-base-white:hover {
+            transform: scale(1.05);
+            background-color: #FFF0F5;
+        }
+
+        .fonte-pesquisa {
+            font-size: 10px;
+            margin-top: 30px;
+            opacity: 0.8;
+            font-style: italic;
+        }
+
+        /* --- Ajuste Responsivo (Celular) --- */
+        @media (max-width: 768px) {
+            .section-base-rosa {
+                margin-top: 100px; 
+                margin-bottom: 60px;
+                padding: 40px 0 20px 0;
+            }
+            .base-grid-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 10px;
+            }
+            .base-text-box {
+                padding-left: 0;
+                order: 2; 
+            }
+            .base-image-box {
+                order: 1; 
+            }
+            .img-base-grande {
+                max-width: 220px; 
+                margin-top: -100px; 
+                margin-bottom: 0;   
+                transform: rotate(0); 
+            }
+            
+            /* --- Desativa ou suaviza o efeito de hover no celular se necessário --- */
+            .img-base-grande:hover {
+                transform: none; /* Desativa a rotação e escala no toque */
+                filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15)); /* Mantém a sombra original */
+            }
+
+            .titulo-base-apple {
+                font-size: 34px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -544,33 +692,45 @@ h1 {
         </div>
     </header>
 
+    <section class="section-base-rosa">
+        <div class="container base-grid-container">
+            <div class="base-image-box">
+                <img src="base.png" alt="Base TimeWise 3D Mary Kay" class="img-base-grande">
+            </div>
+
+            <div class="base-text-box">
+                <span class="badge-white">Best Seller</span>
+                <h2 class="titulo-base-apple">Conheça a Base N°1 do Brasil*</h2>
+                <p class="descricao-base">A Base TimeWise® 3D entrega o acabamento matte que você ama com a tecnologia anti-idade que sua pele precisa. O equilíbrio perfeito entre beleza e cuidado.</p>
+                
+                <div id="preco-base-container" style="margin: 25px 0;"></div>
+                
+                <a href="https://wa.me/5514997027010" class="btn-base-white" target="_blank">Quero Encontrar Minha Cor</a>
+                
+                <p class="fonte-pesquisa">*Fonte: Euromonitor International Limited; Beleza e Cuidados Pessoais Edição 2024; vendas no varejo em valor; dados de 2023.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="about-section" id="sobre">
         <div class="container">
             <div class="about-grid">
                 <div class="about-image-container">
-                    <img src="carla_rodriges.png" alt="Carla Rodrigues" class="about-img">
+                    <img src="carla_rodriges.png" alt="Carla Rodrigues - Consultora de Beleza Independente Mary Kay em São Paulo" class="about-img">
                 </div>
                 <div>
                     <span class="section-tag">Quem é Carla Rodrigues</span>
                     <h2>Uma decisão que <em>mudou tudo</em>.</h2>
-                    <p class="about-text">Depois de entender que o mercado tradicional limitava meu crescimento e o tempo com quem mais amo, decidi construir meu próprio caminho. Hoje, guio outras mulheres a descobrirem seu verdadeiro potencial empreendedor.</p>
+                    <p class="about-text">Sou Carla Rodrigues, Consultora Mary Kay em SP. Em 2025, iniciei no skincare apenas para uso pessoal; não dominava maquiagem. Encantada com os resultados, decidi empreender. Hoje, realizo cursos de automake, eventos corporativos e feiras, transformando a rotina e resgatando a autoestima e a autoconfiança de outras mulheres.</p>
                     
                     <div class="achievements-grid">
                         <div class="achievement-card">
                             <div class="achievement-number">01</div>
-                            <div class="achievement-title">Líder de Categoria</div>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-number">02</div>
-                            <div class="achievement-title">Anos de Trajetória</div>
-                        </div>
-                        <div class="achievement-card">
-                            <div class="achievement-number">+100</div>
-                            <div class="achievement-title">Vidas Transformadas</div>
+                            <div class="achievement-title">Ano de Trajetória</div>
                         </div>
                         <div class="achievement-card">
                             <div class="achievement-number">Top 1</div>
-                            <div class="achievement-title">Reconhecimento Regional</div>
+                            <div class="achievement-title">Lider de vendas da unidade em abril</div>
                         </div>
                     </div>
                 </div>
@@ -769,69 +929,88 @@ h1 {
     });
 });
 
-// 3. Lógica Dinâmica do FAQ puxando do Google Sheets (Versão Inteligente Antifalhas)
-    function carregarFAQ() {
+// 3. Lógica Dinâmica Unificada (FAQ e Preço da Base via Google Sheets)
+    function carregarDadosDinamicos() {
         const faqContainer = document.getElementById('faq-container');
+        const precoContainer = document.getElementById('preco-base-container');
         
         fetch(scriptURL)
             .then(response => response.json())
             .then(data => {
-                faqContainer.innerHTML = ''; // Remove a mensagem de carregando
-                
-                if (!data || data.length === 0 || data.erro) {
-                    faqContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nenhuma dúvida frequente cadastrada no momento.</p>';
+                if (data.erro) {
+                    console.error('Erro nos dados recebidos:', data.erro);
                     return;
                 }
 
-                // Cria o HTML para cada pergunta cadastrada na planilha
-                data.forEach(item => {
-                    let pergunta = "";
-                    let resposta = "";
+                // --- MONTAGEM DO PREÇO DA BASE ---
+                if (precoContainer && data.preco) {
+                    precoContainer.innerHTML = '';
+                    const infoPreco = data.preco;
+                    
+                    // Verifica se a promoção está ativa (campo preenchido com 'Sim')
+                    if (infoPreco.promocao && infoPreco.promocao.toLowerCase() === 'sim') {
+                        // Layout Promocional: Exibe a Tag de Alerta + Estrutura "De / Por"
+                        precoContainer.innerHTML = `
+                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                <span style="background-color: #FFFFFF; color: #FF5C8A; padding: 4px 12px; border-radius: 50px; font-size: 24px; font-weight: 700; text-transform: uppercase; display: inline-block; width: max-content; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">🔥 OFERTA IMPERDÍVEL</span>
+                                <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+                                    <span style="font-size: 15px; opacity: 0.8; text-decoration: line-through;">De: ${infoPreco.precoAntigo}</span>
+                                    <span style="font-size: 36px; font-weight: 800; color: #FFFFFF;">Por apenas: ${infoPreco.precoAtual}</span>
+                                </div>
+                            </div>
+                        `;
+                    } else if (infoPreco.precoAtual) {
+                        // Layout Regular: Oculta o preço antigo e remove marcadores de oferta
+                        precoContainer.innerHTML = `
+                            <div style="display: flex; align-items: baseline; gap: 10px;">
+                                <span style="font-size: 36px; font-weight: 800; color: #FFFFFF;">Por: ${infoPreco.precoAtual}</span>
+                            </div>
+                        `;
+                    }
+                }
 
-                    // Força a descoberta do texto não importa o formato enviado pelo Google
-                    if (Array.isArray(item)) {
-                        pergunta = item[0];
-                        resposta = item[1];
-                    } else if (item && typeof item === 'object') {
-                        pergunta = item.pergunta || item.Pergunta || item.question || "";
-                        resposta = item.resposta || item.Resposta || item.answer || "";
+                // --- MONTAGEM DO FAQ ---
+                if (faqContainer) {
+                    faqContainer.innerHTML = ''; 
+                    const faqList = data.faq || [];
+                    
+                    if (faqList.length === 0) {
+                        faqContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Nenhuma dúvida frequente cadastrada no momento.</p>';
+                        return;
                     }
 
-                    // Se mesmo assim vier vazio, define um texto padrão para não quebrar o layout
-                    if (!pergunta && !resposta) {
-                        return; // Pula linhas totalmente vazias
-                    }
-
-                    const faqItem = document.createElement('div');
-                    faqItem.className = 'faq-item';
-                    faqItem.innerHTML = `
-                        <div class="faq-question">${pergunta}</div>
-                        <div class="faq-answer">${resposta}</div>
-                    `;
-                    faqContainer.appendChild(faqItem);
-                });
-
-                // Reaplica a funcionalidade de clicar e abrir/fechar (Accordion)
-                const faqItems = document.querySelectorAll('.faq-item');
-                faqItems.forEach(item => {
-                    const question = item.querySelector('.faq-question');
-                    question.addEventListener('click', () => {
-                        const answer = item.querySelector('.faq-answer');
-                        const isOpen = answer.style.display === 'block';
-                        
-                        document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = 'none');
-                        answer.style.display = isOpen ? 'none' : 'block';
+                    faqList.forEach(item => {
+                        const faqItem = document.createElement('div');
+                        faqItem.className = 'faq-item';
+                        faqItem.innerHTML = `
+                            <div class="faq-question">${item.pergunta}</div>
+                            <div class="faq-answer">${item.resposta}</div>
+                        `;
+                        faqContainer.appendChild(faqItem);
                     });
-                });
+
+                    // Reaplica a funcionalidade de abrir/fechar do Accordion
+                    const faqItems = document.querySelectorAll('.faq-item');
+                    faqItems.forEach(item => {
+                        const question = item.querySelector('.faq-question');
+                        question.addEventListener('click', () => {
+                            const answer = item.querySelector('.faq-answer');
+                            const isOpen = answer.style.display === 'block';
+                            
+                            document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = 'none');
+                            answer.style.display = isOpen ? 'none' : 'block';
+                        });
+                    });
+                }
             })
             .catch(error => {
-                console.error('Erro ao carregar o FAQ:', error);
-                faqContainer.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar as dúvidas frequentes.</p>';
+                console.error('Erro na requisição dos dados dinâmicos:', error);
+                if (faqContainer) faqContainer.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar as dúvidas frequentes.</p>';
             });
     }
 
-    // Aciona a busca do FAQ assim que a página carrega
-    carregarFAQ();
+    // Inicializa a carga dos dados assim que a página é lida
+    carregarDadosDinamicos();
     
 </script>
 </body>

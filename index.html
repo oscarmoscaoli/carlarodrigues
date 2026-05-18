@@ -19,6 +19,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="favicon.png">
     
     <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
 
@@ -665,6 +667,227 @@ h1 {
             }
         }
 
+/* --- SEÇÃO PROMOÇÕES DO MÊS (COM FUNDO ROSA CLARO) --- */
+        .promocoes-section {
+            padding: 100px 0;
+            background-color: #FFF0F5; /* Rosa clarinho elegante (Lavender Blush) */
+            border-top: 1px solid #FFE4E1; /* Linha de separação muito sutil */
+            border-bottom: 1px solid #FFE4E1;
+        }
+
+        /* Container de Grid - Mantém a flexibilidade para vários itens */
+        .grid-promocoes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Mantém flexibilidade */
+            gap: 30px;
+            margin-top: 40px;
+            justify-content: center; /* Centraliza os itens se houver espaço (importante para 1 item) */
+        }
+
+        /* O Card Individual - O SEGREDO DA HARMONIA ESTÁ AQUI */
+        .card-promocao {
+            background-color: var(--bg-primary);
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            
+            /* --- AJUSTES DE HARMONIA PARA DESKTOP --- */
+            max-width: 480px; /* Limita a largura máxima do card individual */
+            width: 100%; /* Permite que ele se estique até o max-width */
+            margin: 0 auto; /* Centraliza o card se a coluna do grid for maior que o max-width */
+            text-align: center; /* Centraliza o texto para maior harmonia em card compacto */
+        }
+
+        .card-promocao:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+        }
+
+        .promo-img-box {
+            width: 100%;
+            height: 260px; /* Um pouco mais alto para desktop */
+            background-color: #EAEAEA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .promo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-promocao:hover .promo-img {
+            transform: scale(1.03);
+        }
+
+        .promo-content {
+            padding: 30px; /* Padding um pouco maior para respiro */
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            align-items: center; /* Centraliza itens internos no desktop */
+        }
+
+        .promo-title {
+            font-size: 20px; /* Título um pouco maior */
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .promo-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            flex-grow: 1;
+            max-width: 90%; /* Evita linhas muito longas e difíceis de ler */
+        }
+
+        .promo-price-box {
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column; /* Coloca De e Por em duas linhas */
+            align-items: center; /* Centraliza os preços */
+            gap: 4px;
+        }
+
+        .promo-price-old {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            opacity: 0.8;
+        }
+
+        .promo-price-new {
+            font-size: 26px; /* Preço "Por" maior e mais chamativo */
+            font-weight: 700;
+            color: var(--accent-pink);
+        }
+
+        .btn-promo {
+            width: 100%;
+            padding: 14px 28px; /* Botão mais robusto */
+            background-color: var(--accent-pink);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 12px rgba(227, 28, 95, 0.15);
+        }
+
+        .btn-promo:hover {
+            background-color: var(--accent-hover);
+            transform: scale(1.02); /* Leve efeito de crescimento no hover */
+        }
+
+        /* --- Ajuste Responsivo (Celular) --- */
+        @media (max-width: 768px) {
+            .promocoes-section {
+                padding: 60px 0;
+            }
+            .grid-promocoes {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .card-promocao {
+                max-width: 100%; /* Ocupa largura total no celular */
+                text-align: left; /* Alinhamento à esquerda para celular */
+                margin: 0;
+            }
+            .promo-img-box {
+                height: 200px;
+            }
+            .promo-content {
+                padding: 20px;
+                align-items: flex-start; /* Alinhamento à esquerda no celular */
+            }
+            .promo-title {
+                font-size: 18px;
+            }
+            .promo-desc {
+                max-width: 100%;
+                font-size: 13px;
+            }
+            .promo-price-box {
+                align-items: flex-start; /* Alinhamento à esquerda no celular */
+            }
+            .promo-price-new {
+                font-size: 22px;
+            }
+        }
+
+        /* --- EFEITO DESLIZANTE SUAVE PARA A PÁGINA TODA --- */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* --- ESTILOS DO MENU DE NAVEGAÇÃO --- */
+        .navbar-topo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95); /* Fundo branco com leve transparência */
+            backdrop-filter: blur(10px); /* Efeito de vidro jateado chique */
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            z-index: 1000; /* Garante que fique acima de todas as imagens e fundos rosa */
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center; /* O segredo para centralizar tudo */
+            align-items: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 60px; /* Aumentei um pouco o gap para os links respirarem melhor no centro */
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-pink);
+        }
+
+        /* --- RESPONSIVIDADE DO MENU (CELULAR) --- */
+        @media (max-width: 768px) {
+            .navbar-topo {
+                padding: 12px 0;
+            }
+            .nav-links {
+                gap: 10px;
+                flex-wrap: wrap; 
+                justify-content: center;
+            }
+            .nav-links a {
+                font-size: 11px; 
+            }
+        }
     </style>
 <script>
     !function(f,b,e,v,n,t,s)
@@ -683,6 +906,17 @@ h1 {
     /></noscript>
     </head>
 <body>
+
+<nav class="navbar-topo">
+        <div class="container nav-container">
+            <ul class="nav-links">
+                <li><a href="#section-base-rosa">Best Seller</a></li>
+                <li><a href="#sobre">Minha História</a></li>
+                <li><a href="#campanhas">Promoções</a></li>
+                <li><a href="#captura">Seja uma consultora</a></li>
+                <li><a href="#faq-section">Dúvidas</a></li> </ul>
+        </div>
+    </nav>
 
 <header>
         <div class="container">
@@ -707,7 +941,7 @@ h1 {
         </div>
     </header>
 
-    <section class="section-base-rosa">
+    <section class="section-base-rosa" id="section-base-rosa">
         <div class="container base-grid-container">
             <div class="base-image-box">
                 <img src="base.png" alt="Base TimeWise 3D Mary Kay" class="img-base-grande">
@@ -749,6 +983,22 @@ h1 {
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="promocoes-section" id="campanhas">
+        <div class="container">
+            <div class="text-center">
+                <span class="section-tag" style="background-color: var(--accent-pink); color: white;">Especial de Cuidados</span> 
+                
+                <h2 style="margin-top: 15px;">Ofertas Exclusivas de <span id="mes-atual-texto" style="color: var(--accent-pink); font-family: 'Homemade Apple', cursive; font-size: 54px; font-weight: normal; display: block; line-height: 1.2;">Mês</span></h2>
+                
+                <p style="color: var(--text-muted); max-width: 600px; margin: 10px auto 0 auto;">Aproveite as melhores seleções e condições especiais preparadas para este mês. Fale comigo para garantir o seu pedido.</p>
+            </div>
+
+            <div class="grid-promocoes" id="promocoes-container">
+                <p style="text-align: center; grid-column: 1 / -1; color: var(--text-muted);">Buscando as ofertas do mês...</p>
             </div>
         </div>
     </section>
@@ -853,7 +1103,7 @@ h1 {
         </div>
     </section>
 
-    <section class="faq-section">
+    <section class="faq-section" id="faq-section">
         <div class="container">
             <div class="text-center">
                 <span class="section-tag">Dúvidas Frequentes</span>
@@ -948,10 +1198,25 @@ h1 {
     });
 });
 
-// 3. Lógica Dinâmica Unificada (FAQ e Preço da Base via Google Sheets)
+// --- LÓGICA DO MÊS AUTOMÁTICO ---
+    function atualizarMesDaCampanha() {
+        const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+        const dataAtual = new Date();
+        const nomeMes = meses[dataAtual.getMonth()];
+        const elementoMes = document.getElementById('mes-atual-texto');
+        
+        if (elementoMes) {
+            elementoMes.innerText = nomeMes;
+        }
+    }
+    // Executa a função na hora
+    atualizarMesDaCampanha();
+
+// 3. Lógica Dinâmica Unificada (FAQ, Preço da Base e Campanhas do Mês via Sheets)
     function carregarDadosDinamicos() {
         const faqContainer = document.getElementById('faq-container');
         const precoContainer = document.getElementById('preco-base-container');
+        const promocoesContainer = document.getElementById('promocoes-container');
         
         fetch(scriptURL)
             .then(response => response.json())
@@ -961,17 +1226,14 @@ h1 {
                     return;
                 }
 
-                // --- MONTAGEM DO PREÇO DA BASE ---
+                // --- 1. RENDERIZAÇÃO DO PREÇO DA BASE ---
                 if (precoContainer && data.preco) {
                     precoContainer.innerHTML = '';
                     const infoPreco = data.preco;
-                    
-                    // Verifica se a promoção está ativa (campo preenchido com 'Sim')
                     if (infoPreco.promocao && infoPreco.promocao.toLowerCase() === 'sim') {
-                        // Layout Promocional: Exibe a Tag de Alerta + Estrutura "De / Por"
                         precoContainer.innerHTML = `
                             <div style="display: flex; flex-direction: column; gap: 6px;">
-                                <span style="background-color: #FFFFFF; color: #FF5C8A; padding: 4px 12px; border-radius: 50px; font-size: 24px; font-weight: 700; text-transform: uppercase; display: inline-block; width: max-content; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">🔥 OFERTA IMPERDÍVEL</span>
+                                <span style="background-color: #FFFFFF; color: #FF5C8A; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; text-transform: uppercase; display: inline-block; width: max-content; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">🔥 OFERTA IMPERDÍVEL</span>
                                 <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
                                     <span style="font-size: 15px; opacity: 0.8; text-decoration: line-through;">De: ${infoPreco.precoAntigo}</span>
                                     <span style="font-size: 36px; font-weight: 800; color: #FFFFFF;">Por apenas: ${infoPreco.precoAtual}</span>
@@ -979,7 +1241,6 @@ h1 {
                             </div>
                         `;
                     } else if (infoPreco.precoAtual) {
-                        // Layout Regular: Oculta o preço antigo e remove marcadores de oferta
                         precoContainer.innerHTML = `
                             <div style="display: flex; align-items: baseline; gap: 10px;">
                                 <span style="font-size: 36px; font-weight: 800; color: #FFFFFF;">Por: ${infoPreco.precoAtual}</span>
@@ -988,7 +1249,59 @@ h1 {
                     }
                 }
 
-                // --- MONTAGEM DO FAQ ---
+                // --- 2. RENDERIZAÇÃO DAS CAMPANHAS/PROMOÇÕES DO MÊS ---
+                if (promocoesContainer) {
+                    promocoesContainer.innerHTML = '';
+                    const listaPromo = data.promocoes || [];
+
+                    if (listaPromo.length === 0) {
+                        promocoesContainer.innerHTML = '<p style="text-align: center; grid-column: 1 / -1; color: var(--text-muted);">Novas promoções estão sendo preparadas. Volte em breve!</p>';
+                    } else {
+                        listaPromo.forEach(item => {
+                            // Cria uma mensagem personalizada automática para o WhatsApp da Carla
+                            const mensagemZap = encodeURIComponent(`Olá Carla! Vi no site a campanha "${item.titulo}" e gostaria de mais informações.`);
+                            const linkWhatsApp = `https://wa.me/5514997027010?text=${mensagemZap}`;
+
+                            // Monta a estrutura de preços do card se houver preço regular preenchido
+                            let estruturaPreco = '';
+                            if (item.precoRegular) {
+                                estruturaPreco = `
+                                    <div class="promo-price-box">
+                                        <span class="promo-price-old">De: ${item.precoRegular}</span>
+                                        <span class="promo-price-new">Por: ${item.precoPromo}</span>
+                                    </div>
+                                `;
+                            } else if (item.precoPromo) {
+                                estruturaPreco = `
+                                    <div class="promo-price-box">
+                                        <span class="promo-price-new">${item.precoPromo}</span>
+                                    </div>
+                                `;
+                            }
+
+                            // Define uma imagem padrão caso a URL na planilha esteja em branco
+                            const imagemFinal = item.imagemUrl ? item.imagemUrl : 'https://via.placeholder.com/400x300.png?text=Mary+Kay';
+                            const textoBotao = item.textoCta ? item.textoCta : 'Quero Aproveitar';
+
+                            const cardHtml = document.createElement('div');
+                            cardHtml.className = 'card-promocao';
+                            cardHtml.innerHTML = `
+                                <div class="promo-img-box">
+                                    <img src="${imagemFinal}" alt="${item.titulo}" class="promo-img">
+                                </div>
+                                <div class="promo-content">
+                                    <h3 class="promo-title">${item.titulo}</h3>
+                                    <p class="promo-desc">${item.descricao}</p>
+                                    ${estruturaPreco}
+                                    <a href="${linkWhatsApp}" class="btn-promo" target="_blank" onclick="if(typeof fbq === 'function'){ fbq('track', 'Contact'); }">${textoBotao}</a>
+                                </div>
+                            `;
+                            promocoesContainer.appendChild(cardHtml);
+                        });
+                    }
+                }
+
+                // --- 3. RENDERIZAÇÃO DO FAQ ---
                 if (faqContainer) {
                     faqContainer.innerHTML = ''; 
                     const faqList = data.faq || [];
@@ -1008,14 +1321,12 @@ h1 {
                         faqContainer.appendChild(faqItem);
                     });
 
-                    // Reaplica a funcionalidade de abrir/fechar do Accordion
                     const faqItems = document.querySelectorAll('.faq-item');
                     faqItems.forEach(item => {
                         const question = item.querySelector('.faq-question');
                         question.addEventListener('click', () => {
                             const answer = item.querySelector('.faq-answer');
                             const isOpen = answer.style.display === 'block';
-                            
                             document.querySelectorAll('.faq-answer').forEach(ans => ans.style.display = 'none');
                             answer.style.display = isOpen ? 'none' : 'block';
                         });
@@ -1023,12 +1334,12 @@ h1 {
                 }
             })
             .catch(error => {
-                console.error('Erro na requisição dos dados dinâmicos:', error);
+                console.error('Erro na requisição de dados dinâmicos:', error);
                 if (faqContainer) faqContainer.innerHTML = '<p style="text-align: center; color: red;">Não foi possível carregar as dúvidas frequentes.</p>';
             });
     }
 
-    // Inicializa a carga dos dados assim que a página é lida
+    // Inicializa a carga dos dados
     carregarDadosDinamicos();
     
 </script>

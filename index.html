@@ -1043,6 +1043,161 @@ h1 {
             color: white;
             box-shadow: 0 4px 10px rgba(227, 28, 95, 0.2);
         }
+
+        /* --- DESIGN DO RODAPÉ COM FUNDO ROSA (AUTO CONTRASTE) --- */
+        .site-footer {
+            background-color: var(--accent-pink); /* Fundo rosa marcante da Mary Kay */
+            border-top: none;
+            padding-top: 60px;
+            color: rgba(255, 255, 255, 0.8); /* Texto claro para dar contraste */
+            font-size: 14px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: #FFFFFF; /* Nome em branco puro se destaca no rosa */
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+        }
+
+        .footer-subtitle {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+            opacity: 0.9;
+        }
+
+        /* Estilo da caixa de CNPJ adaptada para o fundo rosa */
+        .footer-cnpj {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: rgba(255, 255, 255, 0.15); /* Fundo branco translúcido chique */
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            font-family: monospace;
+            font-size: 13px;
+            color: #FFFFFF;
+        }
+
+        /* Estilo do Endereço adaptado */
+        .footer-address {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            line-height: 1.6;
+        }
+
+        .address-icon {
+            color: #FFFFFF; /* Ícone em branco */
+            margin-top: 2px;
+        }
+
+        .address-text p {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .address-text strong {
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+
+        /* --- BARRA INFERIOR DE CRÉDITOS --- */
+        .footer-bottom {
+            background-color: rgba(0, 0, 0, 0.1); /* Tom discretamente mais escuro que o rosa de fundo */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 20px 0;
+        }
+
+        .footer-bottom-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .copyright-text {
+            font-size: 13px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Assinatura do Desenvolvedor com efeito animado em Branco */
+        .developer-credit {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            margin: 0;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .developer-credit svg {
+            color: #FFFFFF;
+            opacity: 0.8;
+        }
+
+        .developer-credit a {
+            color: #FFFFFF; /* Seu nome em branco para o link brilhar */
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 2px;
+        }
+
+        /* Linha branca que cresce ao passar o mouse */
+        .developer-credit a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #FFFFFF;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s ease-out;
+        }
+
+        .developer-credit a:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+
+        /* Responsividade para Celular */
+        @media (max-width: 768px) {
+            .site-footer {
+                padding-top: 40px;
+            }
+            .footer-grid {
+                gap: 30px;
+                text-align: center;
+            }
+            .footer-address {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+            .footer-bottom-flex {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
     </style>
 <script>
     !function(f,b,e,v,n,t,s)
@@ -1281,10 +1436,39 @@ h1 {
         </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Carla Rodrigues. Todos os direitos reservados.</p>
-            <p style="font-size: 12px; margin-top: 5px; color: #aaa;">Desenvolvido para fins de consultoria independente.</p>
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            
+            <div class="footer-info">
+                <h3 class="footer-brand">Carla Rodrigues</h3>
+                <p class="footer-subtitle">Consultora de Beleza Independente Mary Kay</p>
+                <div class="footer-cnpj">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span><strong>CNPJ:</strong> 27.518.177/0001-30</span>
+                </div>
+            </div>
+
+            <div class="footer-address">
+                <div class="address-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div class="address-text">
+                    <p><strong>Edifício Comercial Clemente Faria</strong><br>
+                    R. Rio Branco, 7-19 - sala 904<br>
+                    Centro, Bauru - SP, 17010-903</p>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-flex">
+                <p class="copyright-text">&copy; 2026 Carla Rodrigues. Todos os direitos reservados.</p>
+                <p class="developer-credit">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                    Desenvolvido por <a href="https://resume.oscarmosca.com.br" target="_blank" rel="noopener noreferrer">Oscar Mosca</a>
+                </p>
+            </div>
         </div>
     </footer>
 
@@ -1613,5 +1797,6 @@ h1 {
         autoPlayTimer = setInterval(() => { mudarSlideCarrossel(1); }, 4000);
     }
 </script>
+
 </body>
 </html>

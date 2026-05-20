@@ -912,24 +912,31 @@ h1 {
             }
         }
 
-        /* --- ESTILOS DO BANNER DINÂMICO DE PROMOÇÕES --- */
+        /* --- CARROSSEL DE BANNERS DINÂMICO --- */
         .container-banner-promo {
             max-width: 1140px;
             margin: 30px auto 10px auto;
             padding: 0 15px;
+            position: relative;
         }
 
-        .banner-promo-link {
-            display: block;
+        .carousel-wrapper {
+            position: relative;
             width: 100%;
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.3s ease;
+            background-color: #f0f0f0;
         }
 
-        .banner-promo-link:hover {
-            transform: scale(1.01);
+        .carousel-slide {
+            display: none; /* Esconde por padrão */
+            width: 100%;
+            animation: fadeEffect 0.6s ease-in-out; /* Transição suave de fade */
+        }
+
+        .carousel-slide.active {
+            display: block; /* Mostra o slide ativo */
         }
 
         .banner-promo-img {
@@ -938,27 +945,78 @@ h1 {
             display: block;
         }
 
-        /* Classes de controle responsivo */
-        .banner-desktop {
-            display: block;
+        .banner-desktop { display: block; }
+        .banner-mobile { display: none; }
+
+        /* Setas de Navegação (Aparecem no passar do mouse) */
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--accent-pink);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .banner-mobile {
-            display: none;
+        .carousel-arrow:hover {
+            background-color: var(--accent-pink);
+            color: white;
         }
 
-        /* Quando a tela for menor que 768px (Celular) */
+        .arrow-left { left: 25px; }
+        .arrow-right { right: 25px; }
+
+        /* Indicadores (Bolinhas) */
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #D6D6D6;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background-color: var(--accent-pink);
+            width: 24px; /* Efeito esticado na bolinha ativa */
+            border-radius: 10px;
+        }
+
+        @keyframes fadeEffect {
+            from { opacity: 0.4; }
+            to { opacity: 1; }
+        }
+
+        /* Configuração do celular */
         @media (max-width: 768px) {
-            .container-banner-promo {
-                margin: 20px auto 0 auto;
-            }
-            .banner-desktop {
-                display: none;
-            }
-            .banner-mobile {
-                display: block;
-            }
+            .container-banner-promo { margin: 20px auto 0 auto; }
+            .banner-desktop { display: none; }
+            .banner-mobile { display: block; }
+            .carousel-arrow { width: 32px; height: 32px; font-size: 14px; }
+            .arrow-left { left: 20px; }
+            .arrow-right { right: 20px; }
         }
+
         /* --- FILTROS DE CATEGORIA --- */
         .filtros-categoria {
             display: flex;
@@ -1095,10 +1153,13 @@ h1 {
             </div>
 
             <div class="container-banner-promo" id="banner-promo-container" style="display: none;">
-                <div class="banner-promo-link">
-                    <img src="" alt="Campanha Especial" class="banner-promo-img banner-desktop" id="img-banner-desktop">
-                    <img src="" alt="Campanha Especial" class="banner-promo-img banner-mobile" id="img-banner-mobile">
-                </div>
+                <div class="carousel-wrapper" id="carousel-slides-container">
+                    </div>
+                
+                <button class="carousel-arrow arrow-left" onclick="mudarSlideCarrossel(-1)">&#10094;</button>
+                <button class="carousel-arrow arrow-right" onclick="mudarSlideCarrossel(1)">&#10095;</button>
+
+                <div class="carousel-dots" id="carousel-dots-container"></div>
             </div>
             <div class="filtros-categoria" id="filtros-container" style="display: none;">
                 </div>
@@ -1262,6 +1323,10 @@ h1 {
     // 1. Substitua pela URL do seu Google Apps Script (Mantenha as aspas)
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzgzDDGMJpbStIvx97RGz351zGulZNsbu1aD6AX1xr1Ub0MGDf7ZISoWR5j1j2K-fxWTg/exec';
     
+    // Variáveis de controle do Carrossel de Banners
+    let slideIndexAtual = 0;
+    let autoPlayTimer;
+
     // 2. Lógica de Envio do Formulário em 2º plano
     const form = document.getElementById('leadForm');
     const btnSubmit = document.getElementById('btn-submit');
@@ -1330,21 +1395,40 @@ h1 {
                     console.error('Erro nos dados recebidos:', data.erro);
                     return;
                 }
-                // --- 0. RENDERIZAÇÃO DO BANNER DINÂMICO ---
-                const bannerContainer = document.getElementById('banner-promo-container');
-                const imgDesktop = document.getElementById('img-banner-desktop');
-                const imgMobile = document.getElementById('img-banner-mobile');
 
-                if (bannerContainer && data.banner && (data.banner.web || data.banner.celular)) {
-                    if (imgDesktop && data.banner.web) {
-                        imgDesktop.src = data.banner.web;
-                    }
-                    if (imgMobile && data.banner.celular) {
-                        imgMobile.src = data.banner.celular;
-                    }
-                    bannerContainer.style.display = 'block'; // Mostra o banner apenas se houver links cadastrados
-                } else {
-                    bannerContainer.style.display = 'none'; // Esconde o banner se não houver dados
+                // --- 0. RENDERIZAÇÃO DO CARROSSEL DE BANNERS DINÂMICO ---
+                const bannerContainer = document.getElementById('banner-promo-container');
+                const slidesContainer = document.getElementById('carousel-slides-container');
+                const dotsContainer = document.getElementById('carousel-dots-container');
+                const listaBanners = data.banners || [];
+
+                if (bannerContainer && slidesContainer && dotsContainer && listaBanners.length > 0) {
+                    slidesContainer.innerHTML = '';
+                    dotsContainer.innerHTML = '';
+
+                    listaBanners.forEach((banner, index) => {
+                        // Cria o HTML do Slide (Responsivo Desktop/Mobile)
+                        const slideDiv = document.createElement('div');
+                        slideDiv.className = `carousel-slide ${index === 0 ? 'active' : ''}`;
+                        slideDiv.innerHTML = `
+                            <img src="${banner.web}" alt="Campanha Especial ${index + 1}" class="banner-promo-img banner-desktop">
+                            <img src="${banner.celular}" alt="Campanha Especial ${index + 1}" class="banner-promo-img banner-mobile">
+                        `;
+                        slidesContainer.appendChild(slideDiv);
+
+                        // Cria as bolinhas indicadoras
+                        const dotBtn = document.createElement('button');
+                        dotBtn.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+                        dotBtn.setAttribute('onclick', `irParaSlideCarrossel(${index})`);
+                        dotsContainer.appendChild(dotBtn);
+                    });
+
+                    bannerContainer.style.display = 'block'; // Exibe a seção
+                    slideIndexAtual = 0; // Reinicia o index
+                    
+                    // Inicia o temporizador automático (Troca de slide a cada 4 segundos)
+                    clearInterval(autoPlayTimer);
+                    autoPlayTimer = setInterval(() => { mudarSlideCarrossel(1); }, 4000);
                 }
 
                 // --- 1. RENDERIZAÇÃO DO PREÇO DA BASE ---
@@ -1495,6 +1579,39 @@ h1 {
     // Inicializa a carga dos dados
     carregarDadosDinamicos();
     
+    // --- FUNÇÕES DE CONTROLE DO CARROSSEL ---
+    function mostrarSlide(index) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        
+        if (slides.length === 0) return;
+
+        // Ajusta as bordas de loop do carrossel
+        if (index >= slides.length) { slideIndexAtual = 0; }
+        else if (index < 0) { slideIndexAtual = slides.length - 1; }
+        else { slideIndexAtual = index; }
+
+        // Remove a classe ativa de todos e adiciona apenas no atual
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+
+        slides[slideIndexAtual].classList.add('active');
+        if (dots[slideIndexAtual]) dots[slideIndexAtual].classList.add('active');
+    }
+
+    function mudarSlideCarrossel(passo) {
+        mostrarSlide(slideIndexAtual + passo);
+        // Reinicia o tempo automático quando o usuário clica manualmente nas setas
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = setInterval(() => { mudarSlideCarrossel(1); }, 4000);
+    }
+
+    function irParaSlideCarrossel(index) {
+        mostrarSlide(index);
+        // Reinicia o tempo automático quando o usuário clica manualmente nas bolinhas
+        clearInterval(autoPlayTimer);
+        autoPlayTimer = setInterval(() => { mudarSlideCarrossel(1); }, 4000);
+    }
 </script>
 </body>
 </html>

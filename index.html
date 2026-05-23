@@ -1743,7 +1743,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                                         <h3 class="promo-title">${item.titulo}</h3>
                                         <p class="promo-desc">${item.descricao}</p>
                                         ${estruturaPreco}
-                                        <a href="${linkWhatsApp}" class="btn-promo" target="_blank" onclick="if(typeof fbq === 'function'){ fbq('track', 'Contact'); }">${textoBotao}</a>
+                                        // O botão dentro da sua função renderizarCards deve ganhar essa propriedade:
+<a href="${linkWhatsApp}" 
+   class="btn-promo" 
+   data-tracking="botao-promocao"
+   data-produto="${item.titulo}"
+   data-preco="${precoNumerico}"
+   target="_blank" 
+   onclick="if(typeof fbq === 'function'){ ... }">${textoBotao}</a>
                                     </div>
                                 `;
                                 promocoesContainer.appendChild(cardHtml);

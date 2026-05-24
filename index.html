@@ -372,7 +372,67 @@
             opacity: 0.8;
             font-style: italic;
         }
+        
+        /* --- ESTILIZAÇÃO E COMPORTAMENTO DO SELO --- */
+        .base-header-grid {
+            display: grid;
+            grid-template-columns: 1fr 135px; /* Deixa 135px fixos pro selo e todo o resto (1fr) livre pro título */
+            align-items: center;
+            gap: 25px; /* Espaçamento de segurança para nunca sobrepor */
+            margin-bottom: 20px;
+            width: 100%;
+        }
 
+        .base-title-group {
+            min-width: 0; /* Impede que o título quebre o layout do grid */
+        }
+
+        .selo-posicionado-box {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .selo-base-img {
+            width: 155px; /* Selo maior, conforme solicitado */
+            height: auto;
+            /* Rotação fixa permanente para a direita (sem efeito ao passar o mouse) */
+            transform: rotate(15deg); 
+            filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+        }
+
+        /* --- RESPONSIVIDADE (Telas menores e Celular) --- */
+        @media (max-width: 992px) {
+            /* Em tablets ou telas médias, aumenta o espaço do título diminuindo levemente o selo */
+            .base-header-grid {
+                grid-template-columns: 1fr 110px;
+                gap: 15px;
+            }
+            .selo-base-img {
+                width: 100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            /* No celular vira bloco único centralizado para não esmagar o texto */
+            .base-header-grid {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .selo-posicionado-box {
+                order: -1; /* Mantém o selo no topo no celular */
+                justify-content: center;
+            }
+
+            .selo-base-img {
+                width: 150px; /* Tamanho ideal para telas de celular */
+                transform: rotate(15deg); /* Rotação um pouco mais suave no mobile */
+            }
+        }
+        
         /* --- VITRINE DE PROMOÇÕES --- */
         .promocoes-section {
             padding: 100px 0;
@@ -1099,7 +1159,7 @@
         <div class="container">
             <span class="hero-badge">Oportunidade de Negócio</span>
             <h1>Conectando mulheres ao seu<br><em>potencial extraordinário.</em></h1>
-            <p class="hero-subtitle">Descubra o caminho para conquistar sua independência financeira, trabalhar no seu próprio ritmo e construir uma carreira de sucesso com suporte completo. Prefere apenas cuidar de você? Encontre seus produtos Mary Kay favoritos comigo, receba um atendimento personalizado e sinta-se ainda mais linda e confiante.</p>
+            <p class="hero-subtitle">Descubra o caminho para conquistar sua independência financeira, trabalhar no seu próprio ritmo e construir uma carreira de sucesso com suporte completo. <strong>Prefere apenas cuidar de você? Encontre seus produtos Mary Kay favoritos comigo, receba um atendimento personalizado e sinta-se ainda mais linda e confiante.</strong></p>
             
             <div class="hero-ctas">
                 <a href="https://wa.me/5514997027010" class="btn btn-primary" target="_blank" onclick="if(typeof fbq === 'function'){ fbq('track', 'Contact'); }">Falar no WhatsApp</a>
@@ -1152,8 +1212,17 @@
                 <img src="base.png" alt="Base TimeWise 3D Mary Kay" class="img-base-grande">
             </div>
             <div class="base-text-box">
-                <span class="badge-white">Best Seller</span>
-                <h2 class="titulo-base-apple">Conheça a base mais vendida do Brasil*</h2>
+                <span class="badge-white" style="margin-bottom: 12px; display: inline-block;">Best Seller</span>
+
+                <div class="base-header-grid">
+                    <div class="base-title-group">
+                        <h2 class="titulo-base-apple">Conheça a base mais vendida do Brasil*</h2>
+                    </div>
+                    <div class="selo-posicionado-box">
+                        <img src="base_n1.png" alt="Selo Mary Kay - A marca nº 1 em bases no Brasil" class="selo-base-img">
+                    </div>
+                </div>
+
                 <p class="descricao-base">A Base TimeWise® 3D entrega o acabamento matte que você ama com a tecnologia anti-idade que sua pele precisa. O equilíbrio perfeito entre beleza e cuidado.</p>
                 
                 <div id="preco-base-container" style="margin: 25px 0;"></div>

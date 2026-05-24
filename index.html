@@ -6,7 +6,7 @@
     
     <title>Carla Rodrigues | Consultora de Beleza Independente Mary Kay SP</title>
     <meta name="description" content="Encontre produtos Mary Kay originais com entrega em todo o estado de São Paulo. Conheça a oportunidade de negócio e conquiste sua independência financeira com o suporte da Carla Rodrigues.">
-    <meta name="keywords" content="Mary Kay, Consultora Mary Kay São Paulo, Comprar Mary Kay SP, Revender Mary Kay, Carla Rodrigues Bem Estar, Empreendedorismo Feminino">
+    <meta name="keywords" content="Mary Kay Bauru, Consultora Mary Kay Bauru, Comprar Mary Kay Bauru, Base Timewise Bauru, Carla Rodrigues">
     <meta name="google-site-verification" content="euXMyKisKPy6CtLXvDbQgSyR5XlKcwDHSb3SKYPHQYw">
     
     <meta property="og:title" content="Carla Rodrigues | Consultora Independente Mary Kay SP">
@@ -1184,7 +1184,7 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-image-container">
-                    <img src="carla_rodriges.png" alt="Carla Rodrigues - Consultora de Beleza Independente Mary Kay em São Paulo" class="about-img">
+                    <img src="carla_rodriges.png" alt="Carla Rodrigues Consultora Mary Kay em Bauru SP - Cuidados com a pele e maquiagem" class="about-img">
                 </div>
                 <div>
                     <span class="section-tag">Quem é Carla Rodrigues</span>
@@ -1209,7 +1209,7 @@
     <section class="section-base-rosa" id="section-base-rosa">
         <div class="container base-grid-container">
             <div class="base-image-box">
-                <img src="base.png" alt="Base TimeWise 3D Mary Kay" class="img-base-grande">
+                <img src="base.png" alt="Comprar Base TimeWise 3D Mary Kay em Bauru - Cor e tratamento anti-idade" class="img-base-grande">
             </div>
             <div class="base-text-box">
                 <span class="badge-white" style="margin-bottom: 12px; display: inline-block;">Best Seller</span>
@@ -1368,6 +1368,27 @@
             </div>
         </div>
     </section>
+
+    <section class="google-reviews-section" style="padding: 60px 0; background-color: #fdf8f8; text-align: center;">
+    <div class="container">
+        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; color: #333; margin-bottom: 10px;">
+            O que dizem nossas clientes 🌟
+        </h3>
+        <p style="color: #666; margin-bottom: 40px; font-size: 16px;">
+            Avaliações reais deixadas no nosso perfil do Google Meu Negócio
+        </p>
+
+        <div id="reviews-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
+            <p id="loading-reviews" style="color: #999;">Carregando depoimentos...</p>
+        </div>
+        
+        <a href="https://share.google/A4GuDraugKms5vJzS" target="_blank" style="display: inline-block; margin-top: 30px; color: #d15b74; font-weight: bold; text-decoration: none; border-bottom: 2px solid #d15b74; padding-bottom: 2px;">
+            Clique aqui para deixar sua avaliação também
+        </a>
+    </div>
+    </section>
+
+<div id="map-shadow-element" style="display:none;"></div>
 
     <footer class="site-footer">
         <div class="container footer-grid">
@@ -1712,5 +1733,112 @@
             autoPlayTimer = setInterval(() => { mudarSlideCarrossel(1); }, 4000);
         }
     </script>
+
+    <script>
+// Armazena o script oficial atualizado usando os novos padrões do Google (async/loading)
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApOM3MlXcLEm2Hf8s71s8jdnxFWjX0qGc&libraries=places&callback=initGoogleReviews" async defer></script>
+
+<script>
+async function initGoogleReviews() {
+    const container = document.getElementById('reviews-container');
+    const loadingText = document.getElementById('loading-reviews');
+
+    try {
+        // Inicializa a classe de Places com o ID do Barbagago para teste
+        // Localize este bloco dentro da sua função e mude para o ID da Carla:
+const place = new google.maps.places.Place({
+    id: 'ChIJX99YvB-PyJQRf6XmR0pLxsY', // <- ID Oficial da ficha da Carla Rodrigues
+    requestedFields: ['reviews']
+});
+
+        // CORREÇÃO AQUI: Passando o objeto de configuração exigido pelo Google
+        await place.fetchFields({ 
+            fields: ['reviews'] 
+        });
+
+        loadingText.style.display = 'none';
+
+        // Valida se o retorno possui avaliações válidas
+        if (!place.reviews || place.reviews.length === 0) {
+            exibirMensagemSemAvaliacoes(container);
+            return;
+        }
+
+        // Filtra avaliações positivas (4 e 5 estrelas)
+        const topReviews = place.reviews.filter(r => r.rating >= 4);
+
+        if (topReviews.length === 0) {
+            exibirMensagemSemAvaliacoes(container);
+            return;
+        }
+
+        // Limpa mensagens residuais antes de desenhar os cards
+        container.innerHTML = '';
+
+        // Cria e injeta os cards de depoimento no HTML
+        // Localize esse trecho dentro do seu 'topReviews.forEach' e substitua:
+topReviews.forEach(review => {
+    const card = document.createElement('div');
+    
+    // (A estilização do card permanece exatamente a mesma aqui...)
+    card.style.backgroundColor = '#ffffff';
+    card.style.borderRadius = '12px';
+    card.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+    card.style.padding = '25px';
+    card.style.width = '300px';
+    card.style.textAlign = 'left';
+    card.style.display = 'flex';
+    card.style.flexDirection = 'column';
+    card.style.justifyContent = 'space-between';
+    
+    let estrelas = '⭐'.repeat(review.rating);
+    
+    let textoFormatado = review.text;
+    if (textoFormatado && textoFormatado.length > 180) {
+        textoFormatado = textoFormatado.substring(0, 180) + '...';
+    }
+
+    // CORREÇÃO DOS CAMPOS DE ATRIBUIÇÃO DO GOOGLE (authorAttribution)
+    const nomeAutor = review.authorAttribution ? review.authorAttribution.displayName : 'Cliente Satisfeito';
+    const fotoAutor = review.authorAttribution ? review.authorAttribution.photoURI : 'https://fonts.gstatic.com/s/i/productlogos/avatar_anonymous/v4/web-72dp.png'; // Avatar padrão caso não tenha foto
+
+    card.innerHTML = `
+        <div>
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                <img src="${fotoAutor}" alt="${nomeAutor}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                <div>
+                    <h4 style="margin: 0; font-size: 15px; color: #333; font-weight: 600;">${nomeAutor}</h4>
+                    <span style="font-size: 12px; color: #999;">${review.relativePublishTimeDescription || 'Recentemente'}</span>
+                </div>
+            </div>
+            <div style="margin-bottom: 10px; font-size: 12px;">${estrelas}</div>
+            <p style="margin: 0; font-size: 14px; color: #555; line-height: 1.5; font-style: italic;">
+                "${textoFormatado || 'Avaliação enviada sem texto.'}"
+            </p>
+        </div>
+    `;
+    
+    container.appendChild(card);
+});
+
+    } catch (error) {
+        console.error('Erro detalhado na requisição das avaliações:', error);
+        loadingText.style.display = 'none';
+        exibirMensagemSemAvaliacoes(container);
+    }
+}
+
+function exibirMensagemSemAvaliacoes(container) {
+    container.innerHTML = `
+        <div style="background-color: #ffffff; border: 1px dashed #e31c5f; padding: 30px; border-radius: 12px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+            <p style="font-size: 18px; font-weight: 600; color: #2d2d2d; margin-bottom: 8px;">Iniciando nossa história no Google! ✨</p>
+            <p style="font-size: 14px; color: #666; line-height: 1.6; margin: 0;">
+                Nosso perfil é novinho em folha. Que tal ser a primeira pessoa a nos dar um voto de confiança e contar como foi a sua experiência com a Carla?
+            </p>
+        </div>
+    `;
+}
+</script>
 </body>
 </html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cadastro de Clientes Vip | Carla Rodrigues</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-pink: #E31C5F;
+            --accent-hover: #C1124D;
+            --bg-secondary: #F9F9FA;
+            --text-main: #2D2D2D;
+            --border-color: #EAEAEA;
+        }
+        
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+            font-family: 'Montserrat', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+        }
+        
+        body { 
+            background-color: #FFF0F5; 
+            color: var(--text-main); 
+            padding: 16px 8px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        
+        .form-wrapper { 
+            background: #fff; 
+            padding: 30px 20px; 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            max-width: 550px; 
+            width: 100%; 
+            border: 1px solid var(--border-color); 
+        }
+        
+        h2 { font-size: 22px; margin-bottom: 6px; text-align: center; color: var(--text-main); font-weight: 700; }
+        .subtitle { font-size: 13px; text-align: center; color: #666; margin-bottom: 25px; line-height: 1.4; }
+        .form-group { margin-bottom: 16px; position: relative; width: 100%; }
+        
+        /* Estrutura de Linhas Dinâmicas */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .form-row-3 { display: grid; grid-template-columns: 1.2fr 1fr 0.8fr; gap: 12px; }
+        .form-row-73 { display: grid; grid-template-columns: 2.2fr 0.8fr; gap: 12px; }
+        
+        label { display: block; font-size: 11px; font-weight: 700; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; color: #555; }
+        
+        .form-control { 
+            width: 100%; 
+            padding: 14px; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+            font-size: 16px; 
+            background-color: var(--bg-secondary); 
+            outline: none; 
+            transition: all 0.2s ease; 
+            -webkit-appearance: none; 
+        }
+        
+        .form-control:focus { 
+            border-color: var(--accent-pink); 
+            background-color: #fff; 
+            box-shadow: 0 0 0 3px rgba(227, 28, 95, 0.1); 
+        }
+        
+        .form-control:disabled { background-color: #f1f1f1; color: #888; cursor: not-allowed; opacity: 1; }
+        
+        /* Botões de Gênero Otimizados e Alinhados */
+        .radio-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; width: 100%; }
+        .radio-option { 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 14px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 10px; 
+            background-color: var(--bg-secondary); 
+            cursor: pointer; 
+            font-size: 14px; 
+            font-weight: 600; 
+            transition: all 0.2s ease; 
+        }
+        .radio-option input { display: none; }
+        .radio-option.active { border-color: var(--accent-pink); background-color: #FFF0F5; color: var(--accent-pink); }
+        
+        .btn-submit { 
+            width: 100%; 
+            padding: 16px; 
+            background-color: var(--accent-pink); 
+            color: white; 
+            border: none; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 16px; 
+            cursor: pointer; 
+            transition: background 0.2s, transform 0.2s; 
+            margin-top: 15px; 
+            box-shadow: 0 4px 12px rgba(227, 28, 95, 0.2); 
+            -webkit-appearance: none;
+        }
+        
+        .btn-submit:hover { background-color: var(--accent-hover); }
+        .btn-submit:active { transform: scale(0.98); }
+        .feedback-cep { font-size: 12px; color: #28a745; margin-top: 4px; display: none; font-weight: 600; }
+        .msg-box { display: none; text-align: center; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-weight: 600; font-size: 14px; }
+        .success { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        
+        .endereco-container { display: none; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 580px) {
+            body { padding: 8px 4px; }
+            .form-wrapper { padding: 24px 16px; border-radius: 14px; box-shadow: none; border: none; }
+            h2 { font-size: 20px; }
+            
+            .form-row, .form-row-3, .form-row-73 { 
+                display: block; 
+            }
+            .form-group { 
+                margin-bottom: 14px; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-wrapper">
+    <h2>Cadastro de Cliente VIP</h2>
+    <p class="subtitle">Preencha os dados abaixo para receber atendimento exclusivo</p>
+
+    <div id="msgSucesso" class="msg-box success">Cadastro realizado com sucesso! Próximo cadastro...</div>
+
+    <form id="clientForm">
+        <input type="hidden" name="formulario" value="clientes">
+        
+        <!-- Mapeamento oculto do Meta Ads -->
+        <input type="hidden" id="madid" name="madid" value="">
+        <input type="hidden" id="country" name="country" value="BR">
+        <input type="hidden" id="doby" name="doby" value="">
+        <input type="hidden" id="age" name="age" value="">
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="fn">Primeiro Nome</label>
+                <input type="text" id="fn" name="fn" class="form-control" placeholder="Ex: Maria" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+                <label for="ln">Sobrenome</label>
+                <input type="text" id="ln" name="ln" class="form-control" placeholder="Ex: Silva" required autocomplete="family-name">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="exemplo@email.com" required autocomplete="email">
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="phone">WhatsApp</label>
+                <input type="tel" id="phone" class="form-control" placeholder="(00) 00000-0000" maxlength="15" required>
+                <input type="hidden" id="phone_pure" name="phone" value="">
+            </div>
+            <div class="form-group">
+                <label for="zip">CEP</label>
+                <input type="text" id="zip" name="zip" class="form-control" placeholder="00000-000" maxlength="9" inputmode="numeric" required>
+                <div id="feedbackCep" class="feedback-cep">✓ CEP Localizado!</div>
+            </div>
+        </div>
+
+        <!-- CONTAINER DE ENDEREÇO AUTOMÁTICO VIA CEP -->
+        <div id="blocoEndereco" class="endereco-container">
+            <div class="form-row-73">
+                <div class="form-group">
+                    <label for="rua_visivel">Rua / Logradouro</label>
+                    <input type="text" id="rua_visivel" class="form-control" disabled>
+                    <!-- Campo oculto para mandar o valor da rua ativa sem o bloqueio do disabled -->
+                    <input type="hidden" id="endereco" name="endereco" value="">
+                </div>
+                <div class="form-group">
+                    <label for="numero">Número</label>
+                    <input type="text" id="numero" name="numero" class="form-control" placeholder="123" inputmode="numeric" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="complemento">Complemento</label>
+                <input type="text" id="complemento" name="complemento" class="form-control" placeholder="Apto, Bloco, Casa (Opcional)">
+            </div>
+
+            <div class="form-row-3">
+                <div class="form-group">
+                    <label for="bairro_visivel">Bairro</label>
+                    <input type="text" id="bairro_visivel" class="form-control" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="ct_visivel">Cidade</label>
+                    <input type="text" id="ct_visivel" class="form-control" disabled>
+                    <input type="hidden" id="ct" name="ct" value="">
+                </div>
+                <div class="form-group">
+                    <label for="st_visivel">Estado</label>
+                    <input type="text" id="st_visivel" class="form-control" disabled>
+                    <input type="hidden" id="st" name="st" value="">
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Data de Nascimento</label>
+            <input type="date" id="dob" name="dob" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label>Gênero</label>
+            <div class="radio-group">
+                <label class="radio-option active" id="lblFem">
+                    <input type="radio" name="gen" value="f" checked onclick="alternarGenero('f')"> Feminino
+                </label>
+                <label class="radio-option" id="lblMasc">
+                    <input type="radio" name="gen" value="m" onclick="alternarGenero('m')"> Masculino
+                </label>
+            </div>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="btn-submit">Salvar Cadastro VIP</button>
+    </form>
+</div>
+
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzgzDDGMJpbStIvx97RGz351zGulZNsbu1aD6AX1xr1Ub0MGDf7ZISoWR5j1j2K-fxWTg/exec';
+
+    const inputPhone = document.getElementById('phone');
+    const inputPhonePure = document.getElementById('phone_pure');
+    const inputZip = document.getElementById('zip');
+    const inputDob = document.getElementById('dob');
+    const feedbackCep = document.getElementById('feedbackCep');
+    const blocoEndereco = document.getElementById('blocoEndereco');
+    const inputNumero = document.getElementById('numero');
+    const inputRuaVisivel = document.getElementById('rua_visivel');
+    const inputEnderecoHidden = document.getElementById('endereco');
+    const form = document.getElementById('clientForm');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const msgSucesso = document.getElementById('msgSucesso');
+
+    function alternarGenero(g) {
+        document.getElementById('lblFem').classList.remove('active');
+        document.getElementById('lblMasc').classList.remove('active');
+        if(g === 'f') document.getElementById('lblFem').classList.add('active');
+        if(g === 'm') document.getElementById('lblMasc').classList.add('active');
+    }
+
+    inputPhone.addEventListener('input', (e) => {
+        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        let numLimpo = e.target.value.replace(/\D/g, '');
+        inputPhonePure.value = numLimpo ? '55' + numLimpo : '';
+    });
+
+    inputZip.addEventListener('input', (e) => {
+        let x = e.target.value.replace(/\D/g, '').match(/(\d{0,5})(\d{0,3})/);
+        e.target.value = x[1] + (x[2] ? '-' + x[2] : '');
+        
+        let cep = e.target.value.replace(/\D/g, '');
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(res => res.json())
+                .then(dados => {
+                    if (!dados.erro) {
+                        inputRuaVisivel.value = dados.logradouro || '';
+                        inputEnderecoHidden.value = dados.logradouro || '';
+                        document.getElementById('bairro_visivel').value = dados.bairro || '';
+                        document.getElementById('ct_visivel').value = dados.localidade;
+                        document.getElementById('st_visivel').value = dados.uf;
+
+                        document.getElementById('ct').value = dados.localidade;
+                        document.getElementById('st').value = dados.uf.toLowerCase();
+
+                        feedbackCep.style.display = 'block';
+                        blocoEndereco.style.display = 'block';
+                        
+                        setTimeout(() => { inputNumero.focus(); }, 100);
+                    } else {
+                        limparCamposEndereco();
+                    }
+                })
+                .catch(() => limparCamposEndereco());
+        } else {
+            feedbackCep.style.display = 'none';
+        }
+    });
+
+    function limparCamposEndereco() {
+        inputRuaVisivel.value = '';
+        inputEnderecoHidden.value = '';
+        document.getElementById('bairro_visivel').value = '';
+        document.getElementById('ct_visivel').value = '';
+        document.getElementById('st_visivel').value = '';
+        document.getElementById('ct').value = '';
+        document.getElementById('st').value = '';
+        feedbackCep.style.display = 'none';
+        blocoEndereco.style.display = 'none';
+    }
+
+    inputDob.addEventListener('change', (e) => {
+        if (e.target.value) {
+            const dataNascimento = new Date(e.target.value);
+            const anoNascimento = dataNascimento.getFullYear();
+            document.getElementById('doby').value = anoNascimento;
+
+            const hoje = new Date();
+            let idade = hoje.getFullYear() - anoNascimento;
+            const m = hoje.getMonth() - dataNascimento.getMonth();
+            if (m < 0 || (m === 0 && hoje.getDate() < dataNascimento.getDate())) {
+                idade--;
+            }
+            document.getElementById('age').value = idade;
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        btnSubmit.disabled = true;
+        btnSubmit.innerText = "Salvando...";
+
+        fetch(scriptURL, { method: 'POST', body: new URLSearchParams(new FormData(form)), mode: 'no-cors' })
+            .then(() => {
+                msgSucesso.style.display = 'block';
+                form.reset();
+                limparCamposEndereco();
+                alternarGenero('f');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('Erro na conexão. Tente novamente.');
+            })
+            .finally(() => {
+                btnSubmit.disabled = false;
+                btnSubmit.innerText = "Salvar Cadastro VIP";
+                setTimeout(() => { msgSucesso.style.display = 'none'; }, 4000);
+            });
+    });
+</script>
+
+</body>
+</html>

@@ -268,6 +268,14 @@
             margin-bottom: 4px;
         }
 
+        .achievement-number-top {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            color: var(--accent-pink);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
         .achievement-title {
             font-size: 14px;
             font-weight: 600;
@@ -373,18 +381,18 @@
             font-style: italic;
         }
         
-        /* --- ESTILIZAÇÃO E COMPORTAMENTO DO SELO --- */
+        /* --- ESTILIZAÇÃO E COMPORTAMENTO DO SELO DE AUTORIDADE --- */
         .base-header-grid {
             display: grid;
-            grid-template-columns: 1fr 135px; /* Deixa 135px fixos pro selo e todo o resto (1fr) livre pro título */
+            grid-template-columns: 1fr 135px; 
             align-items: center;
-            gap: 25px; /* Espaçamento de segurança para nunca sobrepor */
+            gap: 25px; 
             margin-bottom: 20px;
             width: 100%;
         }
 
         .base-title-group {
-            min-width: 0; /* Impede que o título quebre o layout do grid */
+            min-width: 0; 
         }
 
         .selo-posicionado-box {
@@ -394,46 +402,13 @@
         }
 
         .selo-base-img {
-            width: 155px; /* Selo maior, conforme solicitado */
+            width: 155px; 
             height: auto;
-            /* Rotação fixa permanente para a direita (sem efeito ao passar o mouse) */
             transform: rotate(15deg); 
             filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
         }
 
-        /* --- RESPONSIVIDADE (Telas menores e Celular) --- */
-        @media (max-width: 992px) {
-            /* Em tablets ou telas médias, aumenta o espaço do título diminuindo levemente o selo */
-            .base-header-grid {
-                grid-template-columns: 1fr 110px;
-                gap: 15px;
-            }
-            .selo-base-img {
-                width: 100px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            /* No celular vira bloco único centralizado para não esmagar o texto */
-            .base-header-grid {
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-                gap: 20px;
-            }
-            
-            .selo-posicionado-box {
-                order: -1; /* Mantém o selo no topo no celular */
-                justify-content: center;
-            }
-
-            .selo-base-img {
-                width: 150px; /* Tamanho ideal para telas de celular */
-                transform: rotate(15deg); /* Rotação um pouco mais suave no mobile */
-            }
-        }
-        
-        /* --- VITRINE DE PROMOÇÕES --- */
+        /* --- VITRINE DE PROMOÇÕES E CARDS --- */
         .promocoes-section {
             padding: 100px 0;
             background-color: #FFF0F5; 
@@ -848,6 +823,111 @@
             display: none;
         }
 
+        /* --- ESTILOS DA JANELA MODAL EXPANDIDA DE PRODUTOS --- */
+        .modal-produto {
+            display: none; 
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-conteudo {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+            text-align: center;
+            animation: abrirModal 0.3s ease-out;
+        }
+
+        @keyframes abrirModal {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .fechar-modal {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            color: #999;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .fechar-modal:hover { color: #333; }
+
+        .modal-img {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .container-variacoes {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .bolinha-cor {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid #e1e1e1;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .bolinha-cor:hover {
+            transform: scale(1.15);
+            border-color: #e31c5f;
+        }
+
+        .bolinha-cor.selecionada {
+            border-color: #e31c5f;
+            box-shadow: 0 0 0 3px rgba(227, 28, 95, 0.2);
+            transform: scale(1.1);
+        }
+
+        .bolinha-cor::after {
+            content: attr(data-nome);
+            position: absolute;
+            bottom: 38px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            background-color: #333;
+            color: #fff;
+            padding: 4px 8px;
+            font-size: 11px;
+            border-radius: 4px;
+            white-space: nowrap;
+            transition: transform 0.15s ease;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        .bolinha-cor:hover::after {
+            transform: translateX(-50%) scale(1);
+        }
+
         /* --- COOKIE BANNER (LGPD) --- */
         .cookie-banner {
             position: fixed;
@@ -1136,7 +1216,7 @@
     <noscript>
         <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2029254927949066&ev=PageView&noscript=1">
     </noscript>
-    </head>
+</head>
 <body>
 
     <noscript>
@@ -1197,7 +1277,7 @@
                             <div class="achievement-title">Ano de Trajetória</div>
                         </div>
                         <div class="achievement-card">
-                            <div class="achievement-number">Top 1</div>
+                            <div class="achievement-number-top">Top 1</div>
                             <div class="achievement-title">Lider de vendas da unidade em abril</div>
                         </div>
                     </div>
@@ -1370,25 +1450,25 @@
     </section>
 
     <section class="google-reviews-section" style="padding: 60px 0; background-color: #fdf8f8; text-align: center;">
-    <div class="container">
-        <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; color: #333; margin-bottom: 10px;">
-            O que dizem nossas clientes 🌟
-        </h3>
-        <p style="color: #666; margin-bottom: 40px; font-size: 16px;">
-            Avaliações reais deixadas no nosso perfil do Google Meu Negócio
-        </p>
+        <div class="container">
+            <h3 style="font-family: 'Playfair Display', serif; font-size: 28px; color: #333; margin-bottom: 10px;">
+                O que dizem nossas clientes 🌟
+            </h3>
+            <p style="color: #666; margin-bottom: 40px; font-size: 16px;">
+                Avaliações reais deixadas no nosso perfil do Google Meu Negócio
+            </p>
 
-        <div id="reviews-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
-            <p id="loading-reviews" style="color: #999;">Carregando depoimentos...</p>
+            <div id="reviews-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1200px; margin: 0 auto;">
+                <p id="loading-reviews" style="color: #999;">Carregando depoimentos...</p>
+            </div>
+            
+            <a href="https://share.google/A4GuDraugKms5vJzS" target="_blank" style="display: inline-block; margin-top: 30px; color: #d15b74; font-weight: bold; text-decoration: none; border-bottom: 2px solid #d15b74; padding-bottom: 2px;">
+                Clique aqui para deixar sua avaliação também
+            </a>
         </div>
-        
-        <a href="https://share.google/A4GuDraugKms5vJzS" target="_blank" style="display: inline-block; margin-top: 30px; color: #d15b74; font-weight: bold; text-decoration: none; border-bottom: 2px solid #d15b74; padding-bottom: 2px;">
-            Clique aqui para deixar sua avaliação também
-        </a>
-    </div>
     </section>
 
-<div id="map-shadow-element" style="display:none;"></div>
+    <div id="map-shadow-element" style="display:none;"></div>
 
     <footer class="site-footer">
         <div class="container footer-grid">
@@ -1447,11 +1527,28 @@
         <button class="cookie-btn" id="aceitar-cookies">Entendi e Aceito</button>
     </div>
 
+    <div id="modalProduto" class="modal-produto" onclick="fecharModalProduto(event)">
+        <div class="modal-conteudo" onclick="event.stopPropagation()">
+            <span class="fechar-modal" onclick="document.getElementById('modalProduto').style.display='none'">&times;</span>
+            
+            <img id="modalImg" class="modal-img" src="" alt="Produto">
+            <h3 id="modalTitulo" style="margin: 10px 0 5px 0; font-size: 20px; color: #333;"></h3>
+            <p id="modalPreco" style="margin: 0 0 15px 0; font-weight: bold; color: #e31c5f; font-size: 18px;"></p>
+            
+            <p id="modalDescricao" style="font-size: 14px; color: #666; line-height: 1.5; margin: 10px 0; text-align: left; max-height: 120px; overflow-y: auto; padding: 0 10px;"></p>
+            
+            <div id="modalVariacoes" class="container-variacoes"></div>
+            
+            <a id="modalBtnWhats" href="#" target="_blank" style="display: inline-block; background-color: #25D366; color: white; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 15px; margin-top: 10px; transition: background-color 0.2s;">
+                Encomendar pelo WhatsApp
+            </a>
+        </div>
+    </div>
+
     <script>
-        // --- 1. CONFIGURAÇÕES GERAIS DE ENDPOINT ---
         const scriptURL = 'https://script.google.com/macros/s/AKfycbzgzDDGMJpbStIvx97RGz351zGulZNsbu1aD6AX1xr1Ub0MGDf7ZISoWR5j1j2K-fxWTg/exec';
         
-        // --- 2. BANNER DE COOKIES (LGPD) ---
+        // --- COOKIES ---
         const cookieBanner = document.getElementById('cookie-banner');
         const btnAceitarCookies = document.getElementById('aceitar-cookies');
 
@@ -1466,8 +1563,8 @@
             cookieBanner.classList.remove('show');
         });
 
-        // --- 3. CONTROLE DO MÊS AUTOMÁTICO ---
-        function atualizarMesDaCampanha() {
+        // --- MÊS AUTOMÁTICO ---
+        function actualizarMesDaCampanha() {
             const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
             const dataAtual = new Date();
             const nomeMes = meses[dataAtual.getMonth()];
@@ -1476,9 +1573,9 @@
                 elementoMes.innerText = nomeMes;
             }
         }
-        atualizarMesDaCampanha();
+        actualizarMesDaCampanha();
 
-        // --- 4. ENVIO DO FORMULÁRIO DE LEADS (SHEETS + META PIXEL) ---
+        // --- FORMULÁRIO LEADS ---
         const form = document.getElementById('leadForm');
         const btnSubmit = document.getElementById('btn-submit');
         const msgSucesso = document.getElementById('mensagem-sucesso');
@@ -1518,7 +1615,7 @@
             });
         });
 
-        // --- 5. RENDERIZAÇÃO DE DADOS DINÂMICOS (CARROSSEL, PREÇO DA BASE, PROMOÇÕES E FAQ) ---
+        // --- FETCH DE DADOS DINÂMICOS ---
         let slideIndexAtual = 0;
         let autoPlayTimer;
 
@@ -1535,7 +1632,7 @@
                         return;
                     }
 
-                    // --- 5.1 CARROSSEL DE BANNERS ---
+                    // BANNER CARROSSEL
                     const bannerContainer = document.getElementById('banner-promo-container');
                     const slidesContainer = document.getElementById('carousel-slides-container');
                     const dotsContainer = document.getElementById('carousel-dots-container');
@@ -1567,7 +1664,7 @@
                         autoPlayTimer = setInterval(() => { mudarSlideCarrossel(1); }, 4000);
                     }
 
-                    // --- 5.2 PREÇO DA BASE ---
+                    // PREÇO DA BASE
                     if (precoContainer && data.preco) {
                         precoContainer.innerHTML = '';
                         const infoPreco = data.preco;
@@ -1590,7 +1687,7 @@
                         }
                     }
 
-                    // --- 5.3 PROMOÇÕES DO MÊS COM FILTRO ---
+                    // PROMOÇÕES COM FILTRO E CLICK DETALHADO (MODAL)
                     if (promocoesContainer) {
                         const listaPromo = data.promocoes || [];
 
@@ -1623,8 +1720,7 @@
                                 const itensFiltrados = filtro === 'Todos' ? listaPromo : listaPromo.filter(item => item.categoria === filtro);
                                 
                                 itensFiltrados.forEach(item => {
-                                    const mensagemZap = encodeURIComponent(`Olá Carla! Vi no site a campanha "${item.titulo}" e gostaria de mais informações.`);
-                                    const linkWhatsApp = `https://wa.me/5514997027010?text=${mensagemZap}`;
+                                    const itemSeguro = JSON.stringify(item).replace(/"/g, '&quot;');
 
                                     let estruturaPreco = '';
                                     if (item.precoRegular) {
@@ -1649,13 +1745,13 @@
                                     cardHtml.className = 'card-promocao';
                                     cardHtml.innerHTML = `
                                         <div class="promo-img-box">
-                                            <img src="${imagemFinal}" alt="${item.titulo}" class="promo-img">
+                                            <img src="${imagemFinal}" alt="${item.titulo}" class="promo-img" style="cursor: pointer;" onclick="abrirDetalhesProduto(${itemSeguro})">
                                         </div>
                                         <div class="promo-content">
-                                            <h3 class="promo-title">${item.titulo}</h3>
+                                            <h3 class="promo-title" style="cursor: pointer;" onclick="abrirDetalhesProduto(${itemSeguro})">${item.titulo}</h3>
                                             <p class="promo-desc">${item.descricao}</p>
                                             ${estruturaPreco}
-                                            <a href="${linkWhatsApp}" class="btn-promo" target="_blank" onclick="if(typeof fbq === 'function'){ fbq('track', 'Contact'); }">${textoBotao}</a>
+                                            <button class="btn-promo" style="border: none; cursor: pointer; width: 100%; display: block; text-align: center;" onclick="abrirDetalhesProduto(${itemSeguro})">${textoBotao}</button>
                                         </div>
                                     `;
                                     promocoesContainer.appendChild(cardHtml);
@@ -1665,7 +1761,7 @@
                         }
                     }
 
-                    // --- 5.4 RENDERIZAÇÃO DO FAQ ---
+                    // FAQ RENDER
                     if (faqContainer) {
                         faqContainer.innerHTML = ''; 
                         const faqList = data.faq || [];
@@ -1704,7 +1800,7 @@
         }
         carregarDadosDinamicos();
         
-        // --- 6. AUXILIARES DE NAVEGAÇÃO DO CARROSSEL ---
+        // --- NAVEGAÇÃO CARROSSEL ---
         function mostrarSlide(index) {
             const slides = document.querySelectorAll('.carousel-slide');
             const dots = document.querySelectorAll('.carousel-dot');
@@ -1734,111 +1830,158 @@
         }
     </script>
 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApOM3MlXcLEm2Hf8s71s8jdnxFWjX0qGc&libraries=places&callback=initGoogleReviews&language=pt-BR" async defer></script>
     <script>
-// Armazena o script oficial atualizado usando os novos padrões do Google (async/loading)
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyApOM3MlXcLEm2Hf8s71s8jdnxFWjX0qGc&libraries=places&callback=initGoogleReviews&language=pt-BR" async defer></script>
+        async function initGoogleReviews() {
+            const container = document.getElementById('reviews-container');
+            const loadingText = document.getElementById('loading-reviews');
 
-<script>
-async function initGoogleReviews() {
-    const container = document.getElementById('reviews-container');
-    const loadingText = document.getElementById('loading-reviews');
+            try {
+                const place = new google.maps.places.Place({
+                    id: 'ChIJCcxQGRRnv5QR8Dzc4GA3Ln8', 
+                    requestedFields: ['reviews']
+                });
 
-    try {
-        // Inicializa a classe de Places com o ID do Barbagago para teste
-        // Localize este bloco dentro da sua função e mude para o ID da Carla:
-const place = new google.maps.places.Place({
-    id: 'ChIJCcxQGRRnv5QR8Dzc4GA3Ln8', // <- ID Oficial da ficha da Carla Rodrigues
-    requestedFields: ['reviews']
-});
+                await place.fetchFields({ fields: ['reviews'] });
+                loadingText.style.display = 'none';
 
-        // CORREÇÃO AQUI: Passando o objeto de configuração exigido pelo Google
-        await place.fetchFields({ 
-            fields: ['reviews'] 
-        });
+                if (!place.reviews || place.reviews.length === 0) {
+                    exibirMensagemSemAvaliacoes(container);
+                    return;
+                }
 
-        loadingText.style.display = 'none';
+                const topReviews = place.reviews.filter(r => r.rating >= 4);
+                if (topReviews.length === 0) {
+                    exibirMensagemSemAvaliacoes(container);
+                    return;
+                }
 
-        // Valida se o retorno possui avaliações válidas
-        if (!place.reviews || place.reviews.length === 0) {
-            exibirMensagemSemAvaliacoes(container);
-            return;
+                container.innerHTML = '';
+                topReviews.forEach(review => {
+                    const card = document.createElement('div');
+                    card.style.backgroundColor = '#ffffff';
+                    card.style.borderRadius = '12px';
+                    card.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+                    card.style.padding = '25px';
+                    card.style.width = '300px';
+                    card.style.textAlign = 'left';
+                    card.style.display = 'flex';
+                    card.style.flexDirection = 'column';
+                    card.style.justifyContent = 'space-between';
+                    
+                    let estrelas = '⭐'.repeat(review.rating);
+                    let textoFormatado = review.text;
+                    if (textoFormatado && textoFormatado.length > 180) {
+                        textoFormatado = textoFormatado.substring(0, 180) + '...';
+                    }
+
+                    const nomeAutor = review.authorAttribution ? review.authorAttribution.displayName : 'Cliente Satisfeito';
+                    const fotoAutor = review.authorAttribution ? review.authorAttribution.photoURI : 'https://fonts.gstatic.com/s/i/productlogos/avatar_anonymous/v4/web-72dp.png';
+
+                    card.innerHTML = `
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                                <img src="${fotoAutor}" alt="${nomeAutor}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
+                                <div>
+                                    <h4 style="margin: 0; font-size: 15px; color: #333; font-weight: 600;">${nomeAutor}</h4>
+                                    <span style="font-size: 12px; color: #999;">${review.relativePublishTimeDescription || 'Recentemente'}</span>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 10px; font-size: 12px;">${estrelas}</div>
+                            <p style="margin: 0; font-size: 14px; color: #555; line-height: 1.5; font-style: italic;">
+                                "${textoFormatado || 'Avaliação enviada sem texto.'}"
+                            </p>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Erro detalhado na requisição das avaliações:', error);
+                loadingText.style.display = 'none';
+                exibirMensagemSemAvaliacoes(container);
+            }
         }
 
-        // Filtra avaliações positivas (4 e 5 estrelas)
-        const topReviews = place.reviews.filter(r => r.rating >= 4);
-
-        if (topReviews.length === 0) {
-            exibirMensagemSemAvaliacoes(container);
-            return;
-        }
-
-        // Limpa mensagens residuais antes de desenhar os cards
-        container.innerHTML = '';
-
-        // Cria e injeta os cards de depoimento no HTML
-        // Localize esse trecho dentro do seu 'topReviews.forEach' e substitua:
-topReviews.forEach(review => {
-    const card = document.createElement('div');
-    
-    // (A estilização do card permanece exatamente a mesma aqui...)
-    card.style.backgroundColor = '#ffffff';
-    card.style.borderRadius = '12px';
-    card.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
-    card.style.padding = '25px';
-    card.style.width = '300px';
-    card.style.textAlign = 'left';
-    card.style.display = 'flex';
-    card.style.flexDirection = 'column';
-    card.style.justifyContent = 'space-between';
-    
-    let estrelas = '⭐'.repeat(review.rating);
-    
-    let textoFormatado = review.text;
-    if (textoFormatado && textoFormatado.length > 180) {
-        textoFormatado = textoFormatado.substring(0, 180) + '...';
-    }
-
-    // CORREÇÃO DOS CAMPOS DE ATRIBUIÇÃO DO GOOGLE (authorAttribution)
-    const nomeAutor = review.authorAttribution ? review.authorAttribution.displayName : 'Cliente Satisfeito';
-    const fotoAutor = review.authorAttribution ? review.authorAttribution.photoURI : 'https://fonts.gstatic.com/s/i/productlogos/avatar_anonymous/v4/web-72dp.png'; // Avatar padrão caso não tenha foto
-
-    card.innerHTML = `
-        <div>
-            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                <img src="${fotoAutor}" alt="${nomeAutor}" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover;">
-                <div>
-                    <h4 style="margin: 0; font-size: 15px; color: #333; font-weight: 600;">${nomeAutor}</h4>
-                    <span style="font-size: 12px; color: #999;">${review.relativePublishTimeDescription || 'Recentemente'}</span>
+        function exibirMensagemSemAvaliacoes(container) {
+            container.innerHTML = `
+                <div style="background-color: #ffffff; border: 1px dashed #e31c5f; padding: 30px; border-radius: 12px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
+                    <p style="font-size: 18px; font-weight: 600; color: #2d2d2d; margin-bottom: 8px;">Iniciando nossa história no Google! ✨</p>
+                    <p style="font-size: 14px; color: #666; line-height: 1.6; margin: 0;">
+                        Nosso perfil é novinho em folha. Que tal ser a primeira pessoa a nos dar um voto de confiança e contar como foi a sua experiência com a Carla?
+                    </p>
                 </div>
-            </div>
-            <div style="margin-bottom: 10px; font-size: 12px;">${estrelas}</div>
-            <p style="margin: 0; font-size: 14px; color: #555; line-height: 1.5; font-style: italic;">
-                "${textoFormatado || 'Avaliação enviada sem texto.'}"
-            </p>
-        </div>
-    `;
-    
-    container.appendChild(card);
-});
+            `;
+        }
+    </script>
 
-    } catch (error) {
-        console.error('Erro detalhado na requisição das avaliações:', error);
-        loadingText.style.display = 'none';
-        exibirMensagemSemAvaliacoes(container);
-    }
-}
+    <script>
+        function abrirDetalhesProduto(item) {
+            const imagemOriginal = item.imagemUrl ? item.imagemUrl : 'https://via.placeholder.com/400x300.png?text=Mary+Kay';
+            
+            document.getElementById('modalImg').src = imagemOriginal;
+            document.getElementById('modalTitulo').innerText = item.titulo;
+            document.getElementById('modalDescricao').innerText = item.descricao || "Confira a disponibilidade de estoque e encomende já o seu com atendimento personalizado!";
+            document.getElementById('modalPreco').innerText = item.precoPromo ? `Por: ${item.precoPromo}` : (item.precoRegular || '');
+            
+            const containerVariacoes = document.getElementById('modalVariacoes');
+            containerVariacoes.innerHTML = ''; 
+            
+            let corSelecionadaTexto = "";
 
-function exibirMensagemSemAvaliacoes(container) {
-    container.innerHTML = `
-        <div style="background-color: #ffffff; border: 1px dashed #e31c5f; padding: 30px; border-radius: 12px; max-width: 500px; margin: 0 auto; box-shadow: 0 4px 15px rgba(0,0,0,0.02);">
-            <p style="font-size: 18px; font-weight: 600; color: #2d2d2d; margin-bottom: 8px;">Iniciando nossa história no Google! ✨</p>
-            <p style="font-size: 14px; color: #666; line-height: 1.6; margin: 0;">
-                Nosso perfil é novinho em folha. Que tal ser a primeira pessoa a nos dar um voto de confiança e contar como foi a sua experiência com a Carla?
-            </p>
-        </div>
-    `;
-}
-</script>
+            if (item.variacoes && item.variacoes.trim() !== "") {
+                const listaVariacoes = item.variacoes.split(',');
+                
+                listaVariacoes.forEach((variacao, index) => {
+                    const partes = variacao.split('|');
+                    const nomeCor = partes[0].trim();
+                    const fotoCor = partes[1] ? partes[1].trim() : imagemOriginal;
+                    
+                    const bolinha = document.createElement('div');
+                    bolinha.className = 'bolinha-cor';
+                    bolinha.setAttribute('data-nome', nomeCor);
+                    bolinha.style.backgroundImage = `url('${fotoCor}')`;
+                    
+                    if (index === 0) {
+                        bolinha.classList.add('selecionada');
+                        corSelecionadaTexto = nomeCor;
+                        document.getElementById('modalImg').src = fotoCor;
+                    }
+                    
+                    bolinha.onclick = function() {
+                        document.querySelectorAll('.bolinha-cor').forEach(b => b.classList.remove('selecionada'));
+                        this.classList.add('selecionada');
+                        document.getElementById('modalImg').src = fotoCor;
+                        atualizarBotaoWhats(item.titulo, nomeCor);
+                    };
+                    
+                    containerVariacoes.appendChild(bolinha);
+                });
+            }
+
+            atualizarBotaoWhats(item.titulo, corSelecionadaTexto);
+            document.getElementById('modalProduto').style.display = 'flex';
+        }
+
+        function atualizarBotaoWhats(nomeProduto, nomeCor) {
+            const numeroWhats = "5514997027010"; 
+            let texto = `Olá Carla! Vi no site o produto *${nomeProduto}*`;
+            if (nomeCor) {
+                texto += ` na cor *${nomeCor}*`;
+            }
+            texto += ` e gostaria de mais informações.`;
+            
+            const btnWhats = document.getElementById('modalBtnWhats');
+            btnWhats.href = `https://wa.me/${numeroWhats}?text=${encodeURIComponent(texto)}`;
+            btnWhats.onclick = function() {
+                if(typeof fbq === 'function'){ fbq('track', 'Contact'); }
+            };
+        }
+
+        function fecharModalProduto(event) {
+            if (event.target.id === "modalProduto") {
+                document.getElementById('modalProduto').style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
